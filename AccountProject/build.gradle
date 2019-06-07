@@ -57,5 +57,5 @@ dependencies {
    // }
 }
 bootJar {
-    mainClassName = 'AccountProject.App'
+    mainClassName = 'com.account.App'
 }
