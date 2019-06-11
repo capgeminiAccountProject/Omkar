@@ -1,0 +1,5 @@
+applications:
+- name: AccountProject
+  memory: 1G
+  random-route: true
+  path: build/libs/AccountProject.jar
