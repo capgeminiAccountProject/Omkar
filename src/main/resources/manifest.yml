@@ -1,0 +1,5 @@
+applications:
+- name: capgemini-0.1.0
+  path: build/libs/capgemini-0.1.0.jar
+  buildpacks:
+  - https://github.com/cloudfoundry/java-buildpack
