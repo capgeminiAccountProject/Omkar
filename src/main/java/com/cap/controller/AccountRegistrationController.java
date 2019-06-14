@@ -119,6 +119,7 @@ public class AccountRegistrationController {
 			String isvalidToken = accountService.isTokenValid(authorization);
 			if (isvalidToken.equalsIgnoreCase("success")) {
 				Account updatedAccount = accountService.updateAccount(accountNum, accountInputForm);
+				System.out.println("updatedAccount----"+updatedAccount);
 				accountRegistrationResponse.setAccount(updatedAccount);
 				accountRegistrationResponse.setSuccess(true);
 			} else {
