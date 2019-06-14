@@ -28,6 +28,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,6 +40,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -148,7 +150,40 @@ public class AccountRegistrationControllerTest{
 			  .andExpect(MockMvcResultMatchers.jsonPath("$.account.account_num").value(1));
 		  }
 //Single account test end
-	
+
+			
+		//update account test start		  
+				  @Test 
+				  public void updateAccount() throws Exception { List<Account>
+					  accountList = new ArrayList<Account>(); 
+					  Account act=new Account();
+					  act.setAccount_num(1); 
+					  act.setFirst_name("Omkar");act.setLast_name("Vedpathak");act.setSsn("123456798");
+					  act.setDob("06-12-1919");act.setEmail("abc@test.com");act.setMobile_number("1234567890");
+					  act.setHome_address("13 abc way, abccity abcstate 12345");
+					  act.setMailing_address("13 abc way, abccity abcstate 12345");
+					  act.setAccount_type("Savings");act.setMin_balance(100);
+					  AccountRegistration actInput=new AccountRegistration();
+					  actInput.setFirst_name("Omkar");actInput.setLast_name("Vedpathak");actInput.setSsn("123456798");
+					  actInput.setDob("06-12-1919");actInput.setEmail("abc@test.com");actInput.setMobile_number("1234567890");
+					  actInput.setHome_address("13 abc way, abccity abcstate 12345");
+					  actInput.setMailing_address("13 abc way, abccity abcstate 12345");
+					  actInput.setAccount_type("Savings");actInput.setMin_balance(100);
+					  
+					  accountList.add(act); 
+					  String result="success"; 
+					  String token="abc"; 
+					  when(accountService.isTokenValid(token)).thenReturn(result);
+					  when(accountService.updateAccount(Matchers.anyInt(),Matchers.<AccountRegistration>any())).thenReturn(act);
+					  mvc.perform(put("/account/accounts/1").contentType(MediaType.APPLICATION_JSON)
+							  .content(asJsonString(actInput)).header("Authorization", token))
+					  .andExpect(status().isOk())
+					  .andDo(print())
+					  .andExpect(MockMvcResultMatchers.jsonPath("$.account.account_num").value(1));
+				  }
+		//update account test	end
+				  
+		  
 //delete account test start		  
 		  @Test 
 		  public void deleteAccount() throws Exception { List<Account>
